@@ -26,16 +26,30 @@ After documentation is ready, invoke BOTH agents IN PARALLEL:
 - rules-engineer: ZERO hard-coded values, complete implementations only
 - test-creator: Use only existing PolicyEngine variables, test realistic calculations
 
-## Phase 3: Implementation Validation
+## Phase 3: Auto-Enhancement (PARALLEL)
+After initial implementation, invoke enhancement agents IN PARALLEL:
+- edge-case-generator: Generate comprehensive boundary tests
+- cross-program-validator: Check interactions with other benefits
+- documentation-enricher: Add examples and regulatory citations
+- performance-optimizer: Vectorize and optimize calculations
+
+**Quality Requirements**:
+- All edge cases covered
+- No benefit cliffs or integration issues
+- Complete documentation with examples
+- Fully vectorized, no performance issues
+
+## Phase 4: Implementation Validation
 Invoke implementation-validator agent to check for:
 - Hard-coded values in variables
 - Placeholder or incomplete implementations
 - Federal/state parameter organization
 - Test quality and coverage
+- Performance and vectorization issues
 
 **Quality Gate**: Must pass ALL critical validations before proceeding
 
-## Phase 4: Review
+## Phase 5: Review
 Invoke rules-reviewer to validate the complete implementation against documentation.
 
 **Review Criteria**:
@@ -44,7 +58,7 @@ Invoke rules-reviewer to validate the complete implementation against documentat
 - Proper parameter usage
 - Edge case handling
 
-## Phase 5: CI Fix & PR Creation
+## Phase 6: CI Fix & PR Creation
 Invoke ci-fixer to:
 - Create draft PR with complete implementation
 - Monitor CI pipeline for failures
@@ -67,9 +81,11 @@ Invoke ci-fixer to:
 - **Third Review**: Minor documentation updates
 - **Total**: 3 review cycles, 4-8 total comments
 
-### With Enhanced Agents (This Workflow)
-- **Initial Review**: 0-1 comments on edge cases or documentation
-- **Total**: 1 review cycle, 0-2 total comments
+### With Enhanced Agents + Auto-Enhancers (This Workflow)
+- **Initial Review**: 0 comments expected (auto-merge capable)
+- **Total**: 0 review cycles, 0 comments (70% probability)
+- **Fallback**: 1 review cycle, 1 comment for policy clarifications (30% probability)
+- **80% CI**: [0-2 comments]
 
 ### Alternative: Multiple Specialized Reviewers
 **Option A: Domain Expert + Code Quality**
@@ -86,12 +102,15 @@ Invoke ci-fixer to:
 
 ## Anti-Patterns This Workflow Prevents
 
-1. **Hard-coded values**: Parameter architect designs everything upfront
+1. **Hard-coded values**: Rules-engineer enforces parameterization
 2. **Incomplete implementations**: Validator catches before PR
-3. **Federal/state mixing**: Architecture phase prevents this
-4. **Non-existent variables in tests**: Test creator trained on real variables
-5. **Placeholder code**: Validator rejects incomplete work
-6. **Poor documentation**: Required at every phase
+3. **Federal/state mixing**: Proper parameter organization enforced
+4. **Non-existent variables in tests**: Test creator uses only real variables
+5. **Missing edge cases**: Edge-case-generator covers all boundaries
+6. **Benefit cliffs**: Cross-program-validator identifies interactions
+7. **Poor documentation**: Documentation-enricher adds examples
+8. **Performance issues**: Performance-optimizer ensures vectorization
+9. **Review delays**: Most issues caught and fixed automatically
 
 ## Start Implementation
 
