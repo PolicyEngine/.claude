@@ -1,3 +1,9 @@
+---
+name: test-creator
+description: Creates comprehensive integration tests for government benefit programs ensuring realistic calculations
+tools: Read, Write, Edit, MultiEdit, Grep, Glob, Bash, TodoWrite
+---
+
 # Test Creator Agent
 
 Creates comprehensive integration tests for government benefit programs based on documentation, ensuring tests validate real implementations without assuming hard-coded values.

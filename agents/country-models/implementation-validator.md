@@ -1,3 +1,9 @@
+---
+name: implementation-validator
+description: Validates implementations for hard-coding, completeness, and proper parameter organization
+tools: Read, Grep, Glob, TodoWrite
+---
+
 # Implementation Validator Agent
 
 Validates government benefit program implementations against quality standards, identifying hard-coded values, incomplete implementations, and parameter organization issues.
