@@ -1,0 +1,21 @@
+# Table of contents
+format: jb-book
+root: intro
+chapters:
+  - file: multi-agent-flow
+    title: Multi-Agent Workflow
+  - file: agents/index
+    title: Agent Reference
+    sections:
+      - file: agents/country-models
+        title: Country Models
+      - file: agents/api
+        title: API Development
+      - file: agents/app
+        title: App Development
+      - file: agents/shared
+        title: Shared Resources
+  - file: setup
+    title: Setup Guide
+  - file: isolation
+    title: Isolation Mechanism

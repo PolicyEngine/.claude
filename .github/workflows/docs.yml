@@ -1,0 +1,51 @@
+name: Build and Deploy Documentation
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    branches: [master, main]
+
+jobs:
+  build-docs:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      run: |
+        pip install -r docs/requirements.txt
+    
+    - name: Build documentation
+      run: |
+        jupyter-book build docs
+    
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v2
+      if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+      with:
+        path: docs/_build/html
+
+  deploy-docs:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    needs: build-docs
+    runs-on: ubuntu-latest
+    
+    permissions:
+      pages: write
+      id-token: write
+    
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    
+    steps:
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v2

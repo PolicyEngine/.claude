@@ -1,0 +1,65 @@
+# Book settings
+title: PolicyEngine Claude Agents
+author: PolicyEngine
+logo: logo.png
+email: hello@policyengine.org
+copyright: "2024"
+only_build_toc_files: true
+
+# Force re-execution of notebooks on each build
+execute:
+  execute_notebooks: off
+
+# Define the name of the latex output file for PDF builds
+latex:
+  latex_documents:
+    targetname: book.tex
+
+# Add a bibtex file so that we can create citations
+bibtex_bibfiles:
+  - references.bib
+
+# Information about where the book exists on the web
+repository:
+  url: https://github.com/PolicyEngine/.claude
+  path_to_book: docs
+  branch: master
+
+# Add GitHub buttons to your book
+html:
+  use_issues_button: true
+  use_repository_button: true
+  use_edit_page_button: false
+  home_page_in_navbar: true
+  favicon: favicon.ico
+  navbar_footer_text: ""
+  extra_navbar: |
+    <div>
+      <a href="https://policyengine.org">PolicyEngine</a>
+    </div>
+
+# Launch button settings
+launch_buttons:
+  notebook_interface: classic
+
+# MyST settings
+parse:
+  myst_enable_extensions:
+    - amsmath
+    - colon_fence
+    - deflist
+    - dollarmath
+    - html_image
+    - linkify
+    - replacements
+    - smartquotes
+    - substitution
+
+sphinx:
+  config:
+    html_theme: pydata_sphinx_theme
+    html_theme_options:
+      github_url: "https://github.com/PolicyEngine/.claude"
+      twitter_url: "https://twitter.com/ThePolicyEngine"
+      search_bar_text: "Search the docs..."
+      navigation_with_keys: false

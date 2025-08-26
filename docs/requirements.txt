@@ -1,0 +1,5 @@
+jupyter-book>=1.0.0
+sphinx>=5.0
+pydata-sphinx-theme>=0.13.0
+myst-nb>=1.0.0
+sphinxcontrib-mermaid>=0.9.0
