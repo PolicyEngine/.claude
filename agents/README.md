@@ -1,44 +1,60 @@
-# PolicyEngine Agent System
+# PolicyEngine Claude Agents
 
-## Overview
+This repository contains specialized Claude agents for PolicyEngine development across different types of repositories.
 
-This directory contains specialized agents for PolicyEngine development. These agents ensure accurate implementation of government benefit programs through isolated development and comprehensive review.
+## Repository Structure
 
-## Available Agents
+```
+agents/
+├── country-models/     # Agents for country packages (policyengine-us, policyengine-uk, etc.)
+│   ├── rules-reviewer.md      # Reviews rules implementations
+│   ├── test_creator.md         # Creates tests from documentation
+│   ├── rules_engineer.md      # Implements rules from documentation
+│   ├── document_collector.md   # Collects authoritative sources
+│   ├── supervisor.md           # Orchestrates multi-agent development
+│   └── workflow.md            # Multi-agent workflow documentation
+├── api/               # Agents for policyengine-api
+│   └── api-reviewer.md        # Reviews API implementations
+├── app/               # Agents for policyengine-app
+│   └── app-reviewer.md        # Reviews React app code
+└── shared/            # Shared resources across all repos
+    ├── policyengine-standards.md  # Common standards and patterns
+    └── model-evaluator.md         # Evaluates model outputs
+```
 
-### Multi-Agent Development System
-For implementing new programs with maximum accuracy:
-- **supervisor.md** - Orchestrates isolated development workflow
-- **document_collector.md** - Gathers authoritative sources
-- **test_creator.md** - Creates tests from documentation (in isolation)
-- **rules_engineer.md** - Implements from documentation (in isolation)
+## Usage
 
-See **workflow.md** for detailed technical implementation of the multi-agent system.
+Each PolicyEngine repository should add this as a git submodule:
 
-### Standalone Agents
-- **reviewer.md** - Reviews all PolicyEngine code
-  - Verifies source documentation
-  - Checks vectorization
-  - Validates test quality
-  - Acts as verifier in multi-agent system
+```bash
+git submodule add https://github.com/PolicyEngine/.claude.git .claude
+```
 
-### Shared Resources
-- **policyengine-standards.md** - Core standards all agents follow
-  - Source citation requirements
-  - Vectorization rules
-  - Common pitfalls
-  - Testing standards
+Then agents will be available at `.claude/agents/[category]/[agent].md`
 
-## Quick Start
+## Agent Categories
 
-### For Regular PR Review
-Use the `policyengine-reviewer` agent to review any PolicyEngine PR.
+### Country Models (policyengine-us, policyengine-uk, etc.)
+These agents support the multi-agent development workflow for implementing tax and benefit rules with proper isolation and verification.
 
-### For New Program Implementation
-1. Start with the `supervisor` agent
-2. Follow the multi-agent workflow in `workflow.md`
-3. Maintain isolation between test creator and rules engineer
-4. Use reviewer for validation
+### API (policyengine-api)
+Agents focused on Flask API development, performance, security, and proper REST practices.
+
+### App (policyengine-app)
+Agents for React application development, focusing on component quality, performance, and user experience.
+
+### Shared
+Resources and agents that apply across all PolicyEngine repositories.
+
+## Multi-Agent Workflow (Country Models)
+For country model development, we use an isolated multi-agent approach:
+1. **Document Collector** gathers authoritative sources
+2. **Test Creator** writes tests (without seeing implementation)
+3. **Rules Engineer** implements rules (without seeing test expectations)
+4. **Rules Reviewer** verifies implementation matches documentation
+5. **Supervisor** orchestrates and ensures quality
+
+See `country-models/workflow.md` for detailed workflow documentation.
 
 ## Key Principles
 
@@ -47,7 +63,3 @@ Use the `policyengine-reviewer` agent to review any PolicyEngine PR.
 3. **Vectorization**: No if-elif-else with household data
 4. **Documentation**: Every value traces to primary source
 5. **Testing**: Document calculations with regulation references
-
-## Note
-
-These agents are designed for PolicyEngine's rule engine implementation. They focus on accurate transcription of laws and regulations into code, not scientific research or analysis.
