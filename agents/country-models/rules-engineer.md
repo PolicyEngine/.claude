@@ -21,14 +21,14 @@ benefit = min_(75, calculated_amount)                # Hard-coded 75
 
 ✅ **REQUIRED - Everything parameterized**:
 ```python
-crisis_factor = parameters(period).gov.states.id.idhw.liheap.crisis_benefit_factor
-return where(eligible & crisis, p.maximum * crisis_factor, 0)
+adjustment_factor = parameters(period).path.to.program.adjustment_factor
+return where(eligible & special_case, p.maximum * adjustment_factor, 0)
 
-p_season = parameters(period).gov.states.id.idhw.liheap.heating_season
-in_heating_season = (month >= p_season.start_month) | (month <= p_season.end_month)
+p_season = parameters(period).path.to.program.season_dates
+in_season = (month >= p_season.start_month) | (month <= p_season.end_month)
 
-min_benefit = parameters(period).gov.states.id.idhw.liheap.minimum_benefit
-benefit = max_(min_benefit, calculated_amount)
+min_amount = parameters(period).path.to.program.minimum_amount
+benefit = max_(min_amount, calculated_amount)
 ```
 
 ### 2. NO PLACEHOLDER IMPLEMENTATIONS
@@ -42,17 +42,17 @@ def formula(spm_unit, period, parameters):
 
 ✅ **REQUIRED - Complete implementation or no file**:
 ```python
-def formula(spm_unit, period, parameters):
-    p = parameters(period).gov.states.id.idhw.liheap
-    income = spm_unit("household_income", period)
-    size = spm_unit.nb_persons()
+def formula(entity, period, parameters):
+    p = parameters(period).path.to.program
+    income = entity("relevant_income", period)
+    size = entity.nb_persons()
     
     # Full implementation using parameters
-    base_benefit = p.benefit_schedule[min_(size, p.max_household_size)]
-    income_factor = p.income_adjustment.calc(income)
-    final_benefit = base_benefit * income_factor
+    base_amount = p.schedule[min_(size, p.max_size)]
+    adjustment = p.adjustment_factor.calc(income)
+    final_amount = base_amount * adjustment
     
-    return clip(final_benefit, p.minimum_benefit, p.maximum_benefit)
+    return clip(final_amount, p.minimum, p.maximum)
 ```
 
 ### 3. FEDERAL/STATE SEPARATION
@@ -69,12 +69,12 @@ State parameters in `/parameters/gov/states/{state}/`:
 
 Example:
 ```yaml
-# Federal: parameters/gov/hhs/liheap/household_size_factors.yaml
+# National: parameters/gov/agency/program/base_factors.yaml
 1_person: 0.52
 2_person: 0.68
 
-# State: parameters/gov/states/id/idhw/liheap/income_scale.yaml
-2024-10-01: 1.0  # Idaho uses federal factors without adjustment
+# Regional: parameters/gov/states/XX/program/scale_factor.yaml
+2024-01-01: 1.0  # Region uses national factors without adjustment
 ```
 
 ### 4. PARAMETER FILE STANDARDS
@@ -97,8 +97,8 @@ reference:
 
 # ✅ GOOD - Specific reference
 reference:
-  - title: Idaho LIHEAP State Plan FY 2025, Page 12, Section 3.2
-    href: https://healthandwelfare.idaho.gov/liheap-plan-2025.pdf
+  - title: Program Implementation Plan FY 2025, Page 12, Section 3.2
+    href: https://official.source.url/document.pdf
     publication_date: 2024-08-01
 ```
 

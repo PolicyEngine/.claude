@@ -15,21 +15,10 @@ Invoke document-collector agent to gather official $ARGUMENTS documentation.
 - Eligibility criteria and priority groups
 - Seasonal/temporal rules if applicable
 
-## Phase 2: Parameter Architecture
-Invoke parameter-architect agent to design the complete parameter structure.
-
-**Requirements**:
-- Separate federal/national rules from state/regional implementations
-- Create parameter files for ALL values (no hard-coding allowed)
-- Include proper references and metadata
-- Design for maintainability and updates
-
-**Quality Gate**: Parameter architecture review before proceeding
-
-## Phase 3: Parallel Development (SIMULTANEOUS)
-After parameter architecture is approved, invoke BOTH agents IN PARALLEL:
-- test-creator: Create integration tests from documentation and parameter architecture
-- rules-engineer: Implement rules using the parameter architecture
+## Phase 2: Parallel Development (SIMULTANEOUS)
+After documentation is ready, invoke BOTH agents IN PARALLEL:
+- test-creator: Create integration tests from documentation only
+- rules-engineer: Implement rules from documentation (will internally use parameter-architect if needed)
 
 **CRITICAL**: These must run simultaneously in separate conversations to maintain isolation. Neither can see the other's work.
 
@@ -37,7 +26,7 @@ After parameter architecture is approved, invoke BOTH agents IN PARALLEL:
 - rules-engineer: ZERO hard-coded values, complete implementations only
 - test-creator: Use only existing PolicyEngine variables, test realistic calculations
 
-## Phase 4: Implementation Validation
+## Phase 3: Implementation Validation
 Invoke implementation-validator agent to check for:
 - Hard-coded values in variables
 - Placeholder or incomplete implementations
@@ -46,7 +35,7 @@ Invoke implementation-validator agent to check for:
 
 **Quality Gate**: Must pass ALL critical validations before proceeding
 
-## Phase 5: Review
+## Phase 4: Review
 Invoke rules-reviewer to validate the complete implementation against documentation.
 
 **Review Criteria**:
@@ -55,7 +44,7 @@ Invoke rules-reviewer to validate the complete implementation against documentat
 - Proper parameter usage
 - Edge case handling
 
-## Phase 6: CI Fix & PR Creation
+## Phase 5: CI Fix & PR Creation
 Invoke ci-fixer to:
 - Create draft PR with complete implementation
 - Monitor CI pipeline for failures
