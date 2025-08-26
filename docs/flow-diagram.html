@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PolicyEngine Multi-Agent Flow</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({ startOnLoad: true });</script>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; max-width: 1200px; margin: 0 auto; }
+        h1 { color: #333; }
+        .diagram-container { margin: 30px 0; background: #f5f5f5; padding: 20px; border-radius: 8px; }
+    </style>
+</head>
+<body>
+    <h1>PolicyEngine Multi-Agent Development Flow</h1>
+    
+    <h2>Complete System Overview</h2>
+    <div class="diagram-container">
+        <div class="mermaid">
+        flowchart TB
+            subgraph Phase1["📚 Documentation Phase"]
+                DC[Document Collector]
+                DOCS[(Authoritative<br/>Documents)]
+                DC -->|Gathers| DOCS
+            end
+            
+            subgraph Phase2["🔨 Development Phase"]
+                subgraph Isolated1["🔒 Isolation Zone 1"]
+                    TC[Test Creator]
+                    TESTS[(Integration<br/>Tests)]
+                    TC -->|Creates| TESTS
+                end
+                
+                subgraph Isolated2["🔒 Isolation Zone 2"]
+                    RE[Rules Engineer]
+                    CODE[(Implementation<br/>Code)]
+                    RE -->|Implements| CODE
+                end
+                
+                DOCS -->|Reads| TC
+                DOCS -->|Reads| RE
+            end
+            
+            subgraph Phase3["✅ Verification Phase"]
+                REV[Reviewer]
+                TESTS -->|Validates| REV
+                CODE -->|Validates| REV
+                DOCS -->|Cross-checks| REV
+                REV -->|Produces| RESULT[Verified<br/>Implementation]
+            end
+            
+            subgraph Orchestration["🎭 Orchestration"]
+                SUP[Supervisor]
+            end
+            
+            SUP -.->|Manages| DC
+            SUP -.->|Manages| TC
+            SUP -.->|Manages| RE
+            SUP -.->|Manages| REV
+            
+            style Phase1 fill:#e8f5e9
+            style Phase2 fill:#fff3e0
+            style Phase3 fill:#f3e5f5
+            style Isolated1 fill:#e1f5fe
+            style Isolated2 fill:#ffebee
+            style Orchestration fill:#f5f5f5
+        </div>
+    </div>
+
+    <h2>Information Barriers</h2>
+    <div class="diagram-container">
+        <div class="mermaid">
+        graph TB
+            subgraph Documents
+                D[Statutes<br/>Regulations<br/>Manuals]
+            end
+            
+            subgraph "Test Creator View"
+                TC[Can See:<br/>✅ Documents<br/>❌ Implementation<br/>❌ Parameters]
+            end
+            
+            subgraph "Rules Engineer View"  
+                RE[Can See:<br/>✅ Documents<br/>❌ Test Expectations<br/>❌ Integration Tests]
+            end
+            
+            subgraph "Reviewer View"
+                R[Can See:<br/>✅ Everything]
+            end
+            
+            D --> TC
+            D --> RE
+            TC --> R
+            RE --> R
+            
+            style Documents fill:#e8f5e9
+            style TC fill:#e1f5fe
+            style RE fill:#ffebee
+            style R fill:#f3e5f5
+        </div>
+    </div>
+
+    <h2>Sequential Workflow</h2>
+    <div class="diagram-container">
+        <div class="mermaid">
+        sequenceDiagram
+            participant S as Supervisor
+            participant DC as Document Collector
+            participant TC as Test Creator
+            participant RE as Rules Engineer
+            participant R as Reviewer
+            
+            S->>DC: Collect SSI documentation
+            DC->>S: Returns docs package
+            
+            par Test Creation
+                S->>TC: Create tests from docs
+                TC->>TC: Works in isolation
+                TC->>S: Returns test files
+            and Implementation
+                S->>RE: Implement from docs
+                RE->>RE: Works in isolation
+                RE->>S: Returns code
+            end
+            
+            S->>R: Validate everything
+            R->>R: Runs tests, checks docs
+            R->>S: Validation report
+            
+            S->>S: Merge and create PR
+        </div>
+    </div>
+
+    <h2>Key Principle: Isolation</h2>
+    <div class="diagram-container">
+        <div class="mermaid">
+        graph LR
+            A[📚 Documents] --> B[🔍 Document<br/>Collector]
+            B --> C[📋 Test<br/>Creator]
+            B --> D[⚙️ Rules<br/>Engineer]
+            C --> E[✅ Reviewer]
+            D --> E
+            E --> F[🎯 Accurate<br/>Implementation]
+            
+            style C fill:#e1f5fe
+            style D fill:#fff3e0
+            style E fill:#f3e5f5
+            
+            C -.❌.-> D
+        </div>
+    </div>
+    
+    <p><a href="intro.html">← Back to Documentation</a></p>
+</body>
+</html>

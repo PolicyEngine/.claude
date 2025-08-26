@@ -56,8 +56,11 @@ parse:
     - substitution
 
 sphinx:
+  extra_extensions:
+    - sphinxcontrib.mermaid
   config:
     html_theme: pydata_sphinx_theme
+    mermaid_version: "10.6.1"
     html_theme_options:
       github_url: "https://github.com/PolicyEngine/.claude"
       twitter_url: "https://twitter.com/ThePolicyEngine"
