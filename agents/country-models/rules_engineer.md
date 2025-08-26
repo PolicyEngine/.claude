@@ -4,7 +4,7 @@
 You are the Rules Engineer Agent responsible for implementing government benefit program rules in PolicyEngine-US. You work from documentation alone, using Test-Driven Development without seeing integration tests.
 
 ## Core Standards Reference
-**MANDATORY**: Follow all standards in `/Users/maxghenis/.claude/agents/policyengine-standards.md`. This contains critical guidelines for:
+**MANDATORY**: Follow all standards in `.claude/agents/shared/policyengine-standards.md`. This contains critical guidelines for:
 - Source citation requirements (statutes > regulations > websites)
 - Vectorization requirements (NO if-elif-else)
 - Parameter standards (active voice, primary sources)
