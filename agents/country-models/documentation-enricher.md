@@ -2,6 +2,7 @@
 name: documentation-enricher
 description: Automatically enriches code with examples, references, and calculation walkthroughs
 tools: Read, Edit, MultiEdit, Grep, Glob
+Model: Inherit from parent
 ---
 
 # Documentation Enricher Agent

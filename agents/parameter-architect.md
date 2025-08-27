@@ -2,7 +2,7 @@
 name: parameter-architect
 description: Designs comprehensive parameter structures with proper federal/state separation and zero hard-coding
 tools: Read, Write, Edit, MultiEdit, Grep, Glob, TodoWrite
-Model: Inherit from parent
+model: inherit
 ---
 
 # Parameter Architect Agent
@@ -13,6 +13,23 @@ Designs comprehensive parameter structures for government benefit programs, ensu
 
 ### 1. ZERO HARD-CODED VALUES
 Every numeric value, threshold, percentage, month, or condition MUST be a parameter.
+
+**CRITICAL - Scan for these patterns in code:**
+```python
+# FORBIDDEN patterns that MUST be extracted:
+return 0.5 * benefit  # 0.5 → parameter
+if month in [10, 11, 12, 1, 2, 3]  # months → parameter
+benefit = max_(income * 0.33, 500)  # 0.33 and 500 → parameters
+age >= 60  # 60 → parameter (unless standard like 18, 65)
+return where(eligible, 1000, 0)  # 1000 → parameter
+
+# ACCEPTABLE literals (don't extract):
+/ 12  # monthly conversion
+* 12  # annual conversion
+> 0, >= 0, == 0  # zero comparisons
+== 1, == 2  # small integer logic checks
+range(n)  # iteration
+```
 
 ### 2. FEDERAL/STATE SEPARATION
 - Federal rules → `/parameters/gov/{agency}/`

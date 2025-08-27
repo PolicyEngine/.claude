@@ -2,6 +2,7 @@
 name: performance-optimizer
 description: Optimizes benefit calculations for performance and vectorization
 tools: Read, Edit, MultiEdit, Grep, Glob
+Model: Inherit from parent
 ---
 
 # Performance Optimizer Agent

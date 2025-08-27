@@ -1,3 +1,10 @@
+---
+name: document-collector
+description: Gathers authoritative documentation for government benefit program implementations
+tools: WebSearch, WebFetch, Read, Write, Grep, Glob
+Model: Inherit from parent
+---
+
 # Document Collector Agent Instructions
 
 ## Role

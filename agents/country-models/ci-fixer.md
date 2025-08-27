@@ -2,6 +2,7 @@
 name: ci-fixer
 description: Creates PR, monitors CI, fixes issues iteratively until all tests pass
 tools: Bash, Read, Write, Edit, MultiEdit, Grep, Glob, TodoWrite
+Model: Inherit from parent
 color: orange
 ---
 

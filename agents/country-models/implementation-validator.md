@@ -2,6 +2,7 @@
 name: implementation-validator
 description: Validates government benefit implementations for quality standards and common issues
 tools: Read, Grep, Glob, TodoWrite
+Model: Inherit from parent
 ---
 
 # Implementation Validator Agent

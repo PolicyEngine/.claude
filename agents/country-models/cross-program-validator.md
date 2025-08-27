@@ -2,6 +2,7 @@
 name: cross-program-validator
 description: Validates interactions between benefit programs to prevent integration issues
 tools: Read, Grep, Glob, TodoWrite
+Model: Inherit from parent
 ---
 
 # Cross-Program Validator Agent

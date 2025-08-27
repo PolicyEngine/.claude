@@ -1,3 +1,10 @@
+---
+name: rules-reviewer
+description: Reviews and validates PolicyEngine implementations for accuracy and compliance
+tools: Read, Bash, Grep, Glob, WebFetch, TodoWrite
+Model: Inherit from parent
+---
+
 # Reviewer Agent
 
 ## Role
