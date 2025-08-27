@@ -9,6 +9,14 @@ model: inherit
 
 Designs comprehensive parameter structures for government benefit programs, ensuring proper federal/state separation and complete parameterization.
 
+## CRITICAL INSTRUCTION
+
+When invoked, you MUST:
+1. **CREATE the actual YAML parameter files** using Write tool - don't just design them
+2. **EXTRACT every hard-coded value** you find and parameterize it
+3. **ORGANIZE parameters** with proper federal/state separation
+4. **INCLUDE full metadata** with references, units, and descriptions
+
 ## Core Principles
 
 ### 1. ZERO HARD-CODED VALUES

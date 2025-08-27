@@ -6,17 +6,27 @@ description: Review and fix issues in an existing PR, addressing GitHub comments
 
 Orchestrate agents to review, validate, and fix issues in PR #$ARGUMENTS, addressing all GitHub review comments.
 
+## ⚠️ CRITICAL: Agent Usage is MANDATORY
+
+**You are a coordinator, NOT an implementer. You MUST:**
+1. **NEVER make direct code changes** - always use agents
+2. **INVOKE agents with specific, detailed instructions**
+3. **WAIT for each agent to complete** before proceeding
+4. **VERIFY agent outputs** before moving to next phase
+
+**If you find yourself using Edit, Write, or MultiEdit directly, STOP and invoke the appropriate agent instead.**
+
 ## Phase 1: PR Analysis
 First, gather context about the PR and review comments:
 
 ```bash
 gh pr view $ARGUMENTS --comments
-gh pr checks $ARGUMENTS
+gh pr checks $ARGUMENTS  # Note: CI runs on draft PRs too!
 gh pr diff $ARGUMENTS
 ```
 
 Document findings:
-- Current CI status
+- Current CI status (even draft PRs have CI)
 - Review comments to address
 - Files changed
 - Type of implementation (new program, bug fix, enhancement)
@@ -56,6 +66,9 @@ Create a comprehensive checklist:
 - [ ] CI failures to fix
 
 ## Phase 3: Sequential Fix Application
+
+**CRITICAL: You MUST use agents for ALL fixes. DO NOT make direct edits yourself.**
+
 Based on issues found, invoke agents IN ORDER to avoid conflicts.
 
 **Why Sequential**: Unlike initial implementation where we need isolation, PR fixes must be applied sequentially because:
@@ -64,19 +77,44 @@ Based on issues found, invoke agents IN ORDER to avoid conflicts.
 - Tests need to see the fixed implementation
 - Documentation needs to reflect the final code
 
-Apply fixes in priority order:
+**MANDATORY AGENT USAGE - Apply fixes in this exact order:**
 
 ### Step 1: Fix Domain & Parameter Issues
-1. **policy-domain-validator**: Identify all domain violations
-2. **parameter-architect**: Extract hard-coded values and design proper structure
-3. **rules-engineer**: Refactor implementation to use parameters
-4. **reference-validator**: Ensure all new parameters have proper references
-5. Commit changes before proceeding
+```markdown
+YOU MUST INVOKE THESE AGENTS - DO NOT FIX DIRECTLY:
 
-### Step 2: Add Missing Tests
-1. **edge-case-generator**: Generate boundary tests based on fixed code
-2. **test-creator**: Add integration tests for new parameters
-3. Commit test additions
+1. First, invoke policy-domain-validator:
+   "Scan all files in this PR and create a comprehensive list of all domain violations"
+
+2. Then invoke parameter-architect (REQUIRED for ANY hard-coded values):
+   "Design parameter structure for these hard-coded values found: [list all values]
+    Create the YAML parameter files with proper federal/state separation"
+
+3. Then invoke rules-engineer (REQUIRED for code changes):
+   "Refactor all variables to use the new parameters created by parameter-architect.
+    Fix all hard-coded values in: [list files]"
+
+4. Then invoke reference-validator:
+   "Add proper references to all new parameters created"
+
+5. ONLY AFTER all agents complete: Commit changes
+```
+
+### Step 2: Add Missing Tests (MANDATORY)
+```markdown
+REQUIRED - Must generate tests even if none were failing:
+
+1. Invoke edge-case-generator:
+   "Generate boundary tests for all parameters created in Step 1.
+    Test edge cases for: [list all new parameters]"
+
+2. Invoke test-creator:
+   "Create integration tests for the refactored Idaho LIHEAP implementation.
+    Include tests for all new parameter files created."
+
+3. VERIFY tests pass before committing
+4. Commit test additions
+```
 
 ### Step 3: Enhance Documentation
 1. **documentation-enricher**: Add examples and references to updated code
@@ -249,5 +287,14 @@ If agents produce conflicting fixes:
 2. Ensure no regressions
 3. Maintain backward compatibility
 4. Document any tradeoffs
+
+## Pre-Flight Checklist
+
+Before starting, confirm:
+- [ ] I will NOT make direct edits (no Edit/Write/MultiEdit by coordinator)
+- [ ] I will invoke agents for ALL changes
+- [ ] I will wait for each agent to complete
+- [ ] I will generate tests even if current tests pass
+- [ ] I will commit after each agent phase
 
 Start with Phase 1: Analyze PR #$ARGUMENTS and review comments.
