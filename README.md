@@ -65,3 +65,7 @@ The agents are used across all PolicyEngine country packages:
 ## 📝 License
 
 This repository is part of the PolicyEngine project. See LICENSE for details.
+
+## License
+
+Code in this repository is released under the [MIT License](LICENSE). Original text and figures are released under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) with attribution to PolicyEngine. Third-party data and materials keep their own terms.
