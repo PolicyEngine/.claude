@@ -62,5 +62,8 @@
       "Bash(make:*)"
     ],
     "deny": []
+  },
+  "enabledPlugins": {
+    "complete@policyengine-claude": true
   }
 }
